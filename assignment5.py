@@ -24,7 +24,7 @@ print "\n"
 
 # for v in nodes:
 for col in df.columns:
-	# if v != 9999
+	# if v < 9999
 	if df.loc[node, col] < 9999:		
 		# D(v) = c(u,v)
 		nprime.append([col, df.loc[node,col]])
