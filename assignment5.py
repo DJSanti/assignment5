@@ -10,6 +10,10 @@ filename = sys.argv[1]
 df = pd.read_csv(filename, index_col=0)
 print df
 
+# create N, N'
+n = []
+nprime = []
+
 # ask for a node
 node = raw_input("Please, provide the node's name: ")
 print node
@@ -21,12 +25,14 @@ print "\n"
 # for v in nodes:
 for col in df.columns:
 	# if v != 9999
-	if df.loc[node, col] != 9999:		
+	if df.loc[node, col] < 9999:		
 		# D(v) = c(u,v)
+		n.append([col, df.loc[node,col]])
 		print "{}, {}".format(col, df.loc[node,col])
 	# else D(v) = infinity
 	else:
 		print "{} is infinity".format(col)
+print n
 
 #Repeat
 #find w not in nprime such that D(w) is min
