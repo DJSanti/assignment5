@@ -12,6 +12,7 @@ print df
 
 # create N, N'
 n = []
+hold = []
 nprime = [] 
 
 # ask for a node
@@ -27,12 +28,11 @@ for col in df.columns:
 	# if v < 9999
 	if df.loc[node, col] < 9999:		
 		# D(v) = c(u,v)
-		nprime.append([col, df.loc[node,col]])
-		print "{}, {}".format(col, df.loc[node,col])
+		dv = [node+col, df.loc[node,col]]
+		print dv
+		hold.append(dv)
 	# else D(v) = infinity
-	else:
-		print "{} is infinity".format(col)
-print nprime
+print hold
 
 #Repeat
 #find w not in nprime such that D(w) is min
