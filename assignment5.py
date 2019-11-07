@@ -16,11 +16,17 @@ print node
 
 # get the row that corresponds to our node
 print(df.loc[[node]])
+print "\n"
 
 # for v in nodes:
-# if v != 9999
-# D(v) = c(u,v)
-# else D(v) = infinity
+for col in df.columns:
+	# if v != 9999
+	if df.loc[node, col] != 9999:		
+		# D(v) = c(u,v)
+		print "{}, {}".format(col, df.loc[node,col])
+	# else D(v) = infinity
+	else:
+		print "{} is infinity".format(col)
 
 #Repeat
 #find w not in nprime such that D(w) is min
