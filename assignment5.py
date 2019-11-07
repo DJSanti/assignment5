@@ -1,17 +1,21 @@
 # Names: Brad, Caleb, Sam
 # Assignment #5
 
-#Dijkstra's Algorithm
+# libraries used
 import sys
 import pandas as pd
 
+# get filename of .csv, get it as a dataframe
 filename = sys.argv[1]
 df = pd.read_csv(filename, index_col=0)
 print df
 
-
+# ask for a node
 node = raw_input("Please, provide the node's name: ")
 print node
+
+# get the row that corresponds to our node
+print(df.loc[[node]])
 
 # for v in nodes:
 # if v != 9999
