@@ -2,8 +2,17 @@
 # Assignment #5
 
 #Dijkstra's Algorithm
+import sys
+import pandas as pd
 
-# nprime = []
+filename = sys.argv[1]
+df = pd.read_csv(filename)
+print df
+
+
+node = raw_input("Please, provide the node's name: ")
+print node
+
 # for v in nodes:
 # if v != 9999
 # D(v) = c(u,v)
