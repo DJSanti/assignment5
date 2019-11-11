@@ -5,48 +5,37 @@
 import sys
 import pandas as pd
 
-#getnum function
-def getnum(node, i):
-    print "{}, {}".format(node,i)
-    #Repeat
-    #while 
-    #find w not in nprime such that D(w) is min
-    # add w to nprime
-    #	D(v) = min(D(v), D(w)+c(w,v))
-    # compare with if statement to determine min
-    #until all of nodes in nprime
-    
 
+def getnodes(row):
+	# D(v) = c(u,v)
+	#dv = [node+col, df.loc[node,col]]
+	pv = row
+	dv = (graph.loc[row,col])
+	hold.append([dv, pv, col])
+	
+	
 # get filename of .csv, get it as a dataframe
 filename = sys.argv[1]
-df = pd.read_csv(filename, index_col=0)
-print df
+# create graph
+graph = pd.read_csv(filename, index_col=0)
+print graph
 
-# create N, N'
-n = []
+# create N', hold
 hold = []
 nprime = [] 
 
 # ask for a node
-node = raw_input("Please, provide the node's name: ")
+source = raw_input("Please, provide the node's name: ")
+nprime.append(source)
+row = source
 
-# get the row that corresponds to our node
-#n = df.loc[[node]]
-
-# for v in nodes:
-for col in df.columns:
-	# if v < 9999
-	if df.loc[node, col] < 9999:		
-		# D(v) = c(u,v)
-		dv = [col, df.loc[node,col]]		
-		hold.append(dv)
-        nprime.append(col)
-	# else D(v) = infinity
+# for all neighbors
+for col in graph.columns:
+	if col not in nprime:
+		nprime.append(col)
+	# if v < 9999	
+	if graph.loc[row, col] < 9999:		
+		getnodes(row)
+		
 print hold
 print nprime
-
-for i in nprime:
-    if i != node:
-        getnum(node,i)
-    else:
-        n.append(node, 0)
