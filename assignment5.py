@@ -52,7 +52,7 @@ distX = getnum(node, 'x', df)
 distY = getnum(node, 'y', df)
 distZ = getnum(node, 'z', df)
 
-print "u: {}\nv: {}\nw: {}\nx: {}\ny: {}\nz: {}\n".format(distU, distV, distW, distX, distY, distZ)
+#print "u: {}\nv: {}\nw: {}\nx: {}\ny: {}\nz: {}\n".format(distU, distV, distW, distX, distY, distZ)
 
  #Repeat
     #while 
@@ -62,12 +62,11 @@ print "u: {}\nv: {}\nw: {}\nx: {}\ny: {}\nz: {}\n".format(distU, distV, distW, d
     # compare with if statement to determine min
     #until all of nodes in nprime
 while ((len(nprime) > 0)):
+    shortest = ''
+    minimum = 9999
     for i in nprime:
-        shortest = ''
-        min = 9999
-        if(getnum(node, i, df) < min):
+        if(getnum(node, i, df) < minimum):
+            minimum = getnum(node, i, df)
             shortest = i
+    n.append(shortest)
     nprime.remove(shortest)
-    print nprime
-
-    #test = min(distU, (getnum(node,+ getnum(shortest, 'u', df)))
