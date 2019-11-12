@@ -16,10 +16,26 @@ df = pd.read_csv(filename, index_col=0)
 
 # create N, N'
 n = []
+hold = []
 nprime = [] 
 
 # ask for a node
 node = raw_input("Please, provide the node's name: ")
+
+#get the row that corresponds to our node	
+#n = df.loc[[node]]	
+
+ # for v in nodes:	
+for col in df.columns:	
+	# if v < 9999	
+	if df.loc[node, col] < 9999:			
+		# D(v) = c(u,v)	
+		dv = [col, df.loc[node,col]]			
+		hold.append(dv)	
+        nprime.append(col)	
+	# else D(v) = infinity	
+#print hold	
+#print nprime
 
 n.append(node)
 nprime.remove(node)
@@ -102,7 +118,7 @@ while ((len(nprime) > 0)):
     if 'z' in nprime:
         distZ = min(distZ, Shortdist + getnum(shortest, 'z', df)) 
 
-    #print "u: {}\nv: {}\nw: {}\nx: {}\ny: {}\nz: {}\n".format(distU, distV, distW, distX, distY, distZ)
+    print "u: {}\nv: {}\nw: {}\nx: {}\ny: {}\nz: {}\n".format(distU, distV, distW, distX, distY, distZ)
 
     n.append(shortest)
     nprime.remove(shortest)
