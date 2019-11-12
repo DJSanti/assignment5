@@ -52,6 +52,12 @@ distX = getnum(node, 'x', df)
 distY = getnum(node, 'y', df)
 distZ = getnum(node, 'z', df)
 
+pathU = [node]
+pathV = [node]
+pathW = [node]
+pathX = [node]
+pathY = [node]
+pathZ = [node]
 #print "u: {}\nv: {}\nw: {}\nx: {}\ny: {}\nz: {}\n".format(distU, distV, distW, distX, distY, distZ)
 
  #Repeat
@@ -61,12 +67,59 @@ distZ = getnum(node, 'z', df)
     #	D(v) = min(D(v), D(w)+c(w,v))
     # compare with if statement to determine min
     #until all of nodes in nprime
+shortest = node
 while ((len(nprime) > 0)):
-    shortest = ''
     minimum = 9999
+    print nprime
     for i in nprime:
-        if(getnum(node, i, df) < minimum):
-            minimum = getnum(node, i, df)
+        if i == 'u' and distU < minimum:
+            minimum = distU
             shortest = i
+        elif i == 'v' and distV < minimum:
+            minimum = distV
+            shortest = i
+        elif i == 'w' and distW < minimum:
+            minimum = distW
+            shortest = i
+        elif i == 'x' and distX < minimum:
+            minimum = distX
+            shortest = i
+        elif i == 'y' and distY < minimum:
+            minimum = distY
+            shortest = i
+        elif i == 'z' and distZ < minimum:
+            minimum = distZ
+            shortest = i
+        
+        if shortest == 'u':
+            Shortdist = distU
+        elif shortest == 'v':
+            Shortdist = distV
+        elif shortest == 'w':
+            Shortdist = distW
+        elif shortest == 'x':
+            Shortdist = distX
+        elif shortest == 'y':
+            Shortdist = distY
+        elif shortest == 'z':
+            Shortdist = distZ
+
+    print shortest
+    
+    if 'u' in nprime:
+        distU = min(distU, Shortdist + getnum(shortest, 'u', df))    
+    if 'v' in nprime:
+        distV = min(distV, Shortdist + getnum(shortest, 'v', df)) 
+    if 'w' in nprime:
+        distW = min(distW, Shortdist + getnum(shortest, 'w', df)) 
+    if 'x' in nprime:
+        distX = min(distX, Shortdist + getnum(shortest, 'x', df)) 
+    if 'y' in nprime:
+        distY = min(distY, Shortdist + getnum(shortest, 'y', df)) 
+    if 'z' in nprime:
+        distZ = min(distZ, Shortdist + getnum(shortest, 'z', df)) 
+
+    print "u: {}\nv: {}\nw: {}\nx: {}\ny: {}\nz: {}\n".format(distU, distV, distW, distX, distY, distZ)
+
     n.append(shortest)
     nprime.remove(shortest)
