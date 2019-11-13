@@ -1,48 +1,34 @@
 # Names: Bradford, Caleb, Sam
 # Assignment #5
+# Dr. Timofeyev
+# CSC 450
+# Dijkstra's Algorithm
 
 # libraries used
-import sys
-import pandas as pd
+import sys #For system input
+import pandas as pd #For .csv file input
 
-#getnum function
+#getnum function to calculate the costs from .csv
 def getnum(node, i, df):
     return df.loc[node, i]
     
 # get filename of .csv, get it as a dataframe
 filename = sys.argv[1]
 df = pd.read_csv(filename, index_col=0)
-#print df
 
-# create N, N'
-n = []
-hold = []
+# create N'
 nprime = [] 
 
 # ask for a node
 node = raw_input("Please, provide the node's name: ")
 
-#get the row that corresponds to our node	
-#n = df.loc[[node]]	
+#puts each node from .csv in nprime
+#Initialization in algorithm
+for col in df.columns:
+    nprime.append(col)
 
- # for v in nodes:	
-for col in df.columns:	
-	# if v < 9999	
-	if df.loc[node, col] < 9999:			
-		# D(v) = c(u,v)	
-		dv = [col, df.loc[node,col]]			
-		hold.append(dv)	
-        nprime.append(col)	
-	# else D(v) = infinity	
-#print hold	
-#print nprime
-
-n.append(node)
-#nprime.remove(node)
-
-print "The following is nPrime"
-print nprime
-
+#Cacluates costs for the neighbors attached to starting node
+#Initialization in algorithm
 distU = getnum(node, 'u', df)
 distV = getnum(node, 'v', df)
 distW = getnum(node, 'w', df)
@@ -50,21 +36,23 @@ distX = getnum(node, 'x', df)
 distY = getnum(node, 'y', df)
 distZ = getnum(node, 'z', df)
 
+#Used to keep track of the paths and used for shortest path
 path = ["u", "v", "w", "x", "y", "z"]
 
- #Repeat
-    #while 
-    #find w not in nprime such that D(w) is min
-    # add w to nprime
-    #	D(v) = min(D(v), D(w)+c(w,v))
-    # compare with if statement to determine min
-    #until all of nodes in nprime
+#Beginning node is shortest since it is always 0
 shortest = node
+
+#Repeating until there is nothing left in nprime
+#Same as repeat in algorithm
 while ((len(nprime) > 0)):
-    #path = node
+
+    #Makes first minimum 9999 since we only want neighbors
     minimum = 9999
-    #print nprime
+
+    #Loops through the list of nodes not visited yet and find the minimum value out of all of them
     for i in nprime:
+        #First checks to see if the current node is unvisited and if its current value is less than min
+        #If so then current value is new min and it shortest path
         if i == 'u' and distU < minimum:
             minimum = distU
             shortest = i
@@ -84,6 +72,7 @@ while ((len(nprime) > 0)):
             minimum = distZ
             shortest = i
         
+        #If the shortest node is one of these, then make the shortest distane the same as their cost
         if shortest == 'u':
             Shortdist = distU
         elif shortest == 'v':
@@ -97,6 +86,9 @@ while ((len(nprime) > 0)):
         elif shortest == 'z':
             Shortdist = distZ
     
+    #This is where it checks to see if D(v) = min(D(v), D(w) + c(w, v))
+    #Basically updates each neighbor of the current visited node to figure out its path
+    #Finally, appends the path of the nodes to the path array
     if 'u' in nprime:
         change = Shortdist + getnum(shortest, 'u', df)
         distU = min(distU, change)    
@@ -182,13 +174,12 @@ while ((len(nprime) > 0)):
             if shortest == 'y':
                 path[5] = path[4] + 'z'
 
-    print "u: {}\nv: {}\nw: {}\nx: {}\ny: {}\nz: {}\n".format(distU, distV, distW, distX, distY, distZ)
-
+    #Removes the current node from the list since it has already been visited and added to path
+    #Includes part of algorithm where it removes the visited nodes
     nprime.remove(shortest)
 
-for i in path:
-    if i != node:
-        print i
+#Just formatting and output
+#Prints shortest path tree for the node
 print "Shortest path tree for node {}:".format(node)
 if node == 'u':
     print "{}, {}, {}, {}, {}".format(path[1], path[2], path[3], path[4], path[5])
@@ -203,4 +194,6 @@ if node == 'y':
 if node == 'z':
     print "{}, {}, {}, {}, {}".format(path[0], path[1], path[2], path[3], path[4])
 
+#Prints the least-cost paths for the node
 print "Costs of least-cost paths for node {}:\nu:{}, v:{}, w:{}, x:{}, y:{}, z:{}".format(node, distU, distV, distW, distX, distY, distZ)
+
